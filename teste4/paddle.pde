@@ -1,7 +1,20 @@
-interface Ator {
-  void atualizar();
-  void draw();
-  void setProjected(Projected p);
+class Mover implements Ator {
+  PVector c;
+  Projected espaco;
+  
+  Mover() {
+    c = new PVector(0,0);
+  }
+  
+  void atualizar() { }
+  
+  public void setProjected(Projected p) { this.espaco = p; }
+
+  void draw() {
+    fill(255);
+    rect(c.x-10, c.y-30, 20, 60);      
+  }
+  
 }
 
 class Coisa implements Ator {
@@ -62,74 +75,4 @@ class Coisa implements Ator {
     triangle(p2.x,p2.y, p3.x,p3.y,p4.x,p4.y); 
     
   }
-}
-
-
-Ator a;
-Projected e1,e2;
-
-Camouse camouse;
-
-void setup() {
-  // inicializar todo
-  //size(700,700,P2D);
-  fullScreen();
-  
-  e1 = new AProjected();
-  e2 = new AProjected();
-
-  a = new Coisa();
-  a.setProjected(e1);
-
-  //espaco.showBoundary();
-  e1.set_transform(0, 0, width, height,  new PVector(65,287), new PVector(337,268), new PVector(343,689), new PVector(81,696));
-  e2.set_transform(0, 0, width, height,  new PVector(65,287), new PVector(337,268), new PVector(343,689), new PVector(81,696));
-
-
- 
- 
- 
-
-  camouse = new Camouse(this);
-}
-
-void draw() {
-  // atualizar estado
-  a.atualizar();
-  
-  // renderizar mundo 
-  background(0);
-  a.draw(); 
-  e1.draw();
-  e2.draw();
-
-  //fill(255);
-  //rect(width/2,0,width/2,height);
-  
-  camouse.draw();
-  //image(camouse.getVideo(),width/2, 0);
-  
-  //ellipse(camouse.x(),camouse.y(),10,10);
-  pushStyle();
-  stroke(100,0,0);
-  line(0,camouse.y(),width,camouse.y());
-  popStyle();
-  
-  if (camouse.y() < 150) {
-    a.setProjected(e1);
-  } else {
-    a.setProjected(e2);
-  }
-}
-
-void keyPressed() {
-  switch (key) {
-    case '1' :
-      a.setProjected(e1);
-      break;
-    case '2' :
-      a.setProjected(e2);
-      break;
-  }
-  
 }
